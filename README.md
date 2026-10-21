@@ -29,6 +29,23 @@ Use `.\scripts\verify.ps1` to verify the installed environment and model
 without starting the HTTP server. Pass `-SkipModel` for a configuration-only
 check.
 
+## Windows autostart
+
+Install a per-user Scheduled Task and immediately verify the running service:
+
+```powershell
+.\scripts\install-autostart.ps1
+```
+
+The task runs only for the current interactive user, uses no administrator
+privileges, starts in a hidden window, and keeps the model lazy-loaded until
+the first embedding request.
+
+```powershell
+.\scripts\status-autostart.ps1
+.\scripts\uninstall-autostart.ps1
+```
+
 Configuration is provided through environment variables:
 
 - `LOCAL_EMBEDDING_HOST`, defaults to `127.0.0.1`
