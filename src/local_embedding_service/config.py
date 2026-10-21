@@ -24,7 +24,6 @@ class Settings:
     dimensions: int = DEFAULT_DIMENSIONS
     batch_size: int = DEFAULT_BATCH_SIZE
     model_cache: Path = _project_root() / ".models"
-    bearer_token: str | None = None
     max_request_bytes: int = 1_048_576
     max_batch_size: int = 64
     max_text_chars: int = 100_000
@@ -48,6 +47,5 @@ class Settings:
                     str(_project_root() / ".models"),
                 )
             ),
-            bearer_token=os.environ.get("LOCAL_EMBEDDING_BEARER_TOKEN") or None,
         )
 

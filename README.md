@@ -29,7 +29,6 @@ Configuration is provided through environment variables:
 - `LOCAL_EMBEDDING_HOST`, defaults to `127.0.0.1`
 - `LOCAL_EMBEDDING_PORT`, defaults to `7342`
 - `LOCAL_EMBEDDING_MODEL_CACHE`, defaults to `.models` in this repository
-- `LOCAL_EMBEDDING_BEARER_TOKEN`, optional during development
 
 See [the integration guide](docs/integration.md) for the complete HTTP
 contract, batching rules, index invalidation metadata, and client examples.

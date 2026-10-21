@@ -218,17 +218,11 @@ A client with lexical search should continue in degraded lexical-only mode.
 Do not delete existing vectors merely because the service is temporarily
 unavailable.
 
-## Authentication
+## Local access boundary
 
-During local development, authentication can be omitted. When
-`LOCAL_EMBEDDING_BEARER_TOKEN` is configured, every endpoint requires:
-
-```http
-Authorization: Bearer <token>
-```
-
-Production-style Windows autostart should always configure a token, keep the
-service bound to loopback, and store the token outside Git.
+The service does not use application-level authentication. It must remain bound
+to loopback, must not be exposed through a reverse proxy, and must not enable
+browser CORS access.
 
 ## Configuration
 
@@ -242,5 +236,4 @@ Supported environment variables:
 | `LOCAL_EMBEDDING_DIMENSIONS` | `1024` | Expected dimensions |
 | `LOCAL_EMBEDDING_BATCH_SIZE` | `16` | Inference batch size |
 | `LOCAL_EMBEDDING_MODEL_CACHE` | `.models` | Shared model cache |
-| `LOCAL_EMBEDDING_BEARER_TOKEN` | unset | Optional development token |
 

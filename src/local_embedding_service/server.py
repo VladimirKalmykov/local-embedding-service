@@ -22,8 +22,6 @@ class ServiceRequestHandler(BaseHTTPRequestHandler):
     server: ServiceHttpServer
 
     def do_GET(self) -> None:
-        if not self._authorized():
-            return
         if self.path == "/health":
             self._send_json(HTTPStatus.OK, self.server.service.health())
             return
@@ -33,8 +31,6 @@ class ServiceRequestHandler(BaseHTTPRequestHandler):
         self._send_error(HTTPStatus.NOT_FOUND, "NOT_FOUND", "Endpoint not found.")
 
     def do_POST(self) -> None:
-        if not self._authorized():
-            return
         if self.path != "/v1/embeddings":
             self._send_error(HTTPStatus.NOT_FOUND, "NOT_FOUND", "Endpoint not found.")
             return
@@ -80,19 +76,6 @@ class ServiceRequestHandler(BaseHTTPRequestHandler):
 
     def log_message(self, format: str, *args: Any) -> None:
         return
-
-    def _authorized(self) -> bool:
-        token = self.server.service.settings.bearer_token
-        if token is None:
-            return True
-        if self.headers.get("Authorization") == f"Bearer {token}":
-            return True
-        self._send_error(
-            HTTPStatus.UNAUTHORIZED,
-            "UNAUTHORIZED",
-            "A valid bearer token is required.",
-        )
-        return False
 
     def _send_error(self, status: int, code: str, message: str) -> None:
         self._send_json(status, {"error": {"code": code, "message": message}})
