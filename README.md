@@ -5,6 +5,10 @@ Local per-user HTTP service for reusable text embeddings on this computer.
 The service owns the embedding runtime and model cache. Client projects own
 their source data, vector indexes, and embedding lifecycle.
 
+Dependencies are pinned in `requirements/service.lock.txt`. The model cache is
+stored in `.models/`, ignored by Git, and shared by every local client through
+the HTTP API instead of being copied into each project.
+
 ## Initial API
 
 - `GET /health`
@@ -17,12 +21,13 @@ FastEmbed. Query and document prefixes are applied by the service.
 ## Development
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e .
-$env:PYTHONPATH = "src"
-python -m unittest discover -s tests
-python -m local_embedding_service
+.\scripts\setup.ps1
+.\scripts\run.ps1
 ```
+
+Use `.\scripts\verify.ps1` to verify the installed environment and model
+without starting the HTTP server. Pass `-SkipModel` for a configuration-only
+check.
 
 Configuration is provided through environment variables:
 

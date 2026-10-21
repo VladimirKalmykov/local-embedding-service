@@ -14,6 +14,7 @@ dependencies = [
 
 [project.scripts]
 local-embedding-service = "local_embedding_service.server:main"
+local-embedding-verify = "local_embedding_service.verification:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
